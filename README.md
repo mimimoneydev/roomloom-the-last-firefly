@@ -38,9 +38,3 @@ The deployable static build is written to `dist/`.
 This MVP proves the complete game loop, visual growth, sound, accessibility toggle, and persisted daily streak. It requests hand tracking, gaze tracking, anchors, plane/mesh detection, and real-world hit testing through `iwsdk.config.json`.
 
 The competition build should add a first-run placement gesture that confirms a detected table plane, persist the resulting spatial anchor, scatter lights against measured room planes, and add one new daily creature family. Those additions turn the authored tabletop pose used by this testable MVP into a room-adaptive experience while preserving its current interaction loop.
-
-## Submission copy
-
-**Tagline:** Rescue the last fireflies hiding in your room and grow a living tabletop garden, one five-minute ritual at a time.
-
-**Demo opening:** Show a bare garden in passthrough, pinch one distant light, and cut immediately to the first luminous plant growing from the real table. Complete all three rescues before explaining the technology.
