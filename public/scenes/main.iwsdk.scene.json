@@ -1,0 +1,95 @@
+{
+  "version": "iwsdk.scene.v1",
+  "units": "meters",
+  "components": {
+    "com.iwsdk.components.IBLGradient": {
+      "sky": [0.38, 0.62, 0.55, 1],
+      "equator": [0.16, 0.32, 0.27, 1],
+      "ground": [0.05, 0.08, 0.07, 1],
+      "intensity": 1.1
+    }
+  },
+  "resources": {},
+  "authoring": {
+    "views": [
+      {
+        "id": "hero",
+        "role": "hero",
+        "projection": "perspective",
+        "position": [0, 1.52, 1.15],
+        "target": [0, 1.1, -1.25],
+        "fov": 46
+      }
+    ]
+  },
+  "nodes": [
+    {
+      "id": "roomloom-garden",
+      "name": "Roomloom Garden",
+      "metadata": { "iwsdk.validation": { "allowFloating": true } },
+      "content": { "type": "asset", "asset": "roomloom-garden", "castShadow": true },
+      "transform": { "position": [0, 0.72, -1.32] },
+      "components": {
+        "RoomloomState": { "phase": 0, "found": 0, "total": 3, "complete": false, "highContrast": false }
+      }
+    },
+    {
+      "id": "firefly-one",
+      "name": "Firefly One",
+      "metadata": { "iwsdk.validation": { "allowFloating": true } },
+      "content": { "type": "asset", "asset": "roomloom-firefly" },
+      "transform": { "position": [-0.48, 1.12, -1.0], "scale": 1.15 },
+      "components": {
+        "Firefly": { "index": 0, "captured": false },
+        "RayInteractable": {},
+        "AudioSource": { "src": "./audio/chime.mp3", "maxInstances": 3, "playbackMode": "fade-restart" }
+      }
+    },
+    {
+      "id": "firefly-two",
+      "name": "Firefly Two",
+      "metadata": { "iwsdk.validation": { "allowFloating": true } },
+      "content": { "type": "asset", "asset": "roomloom-firefly" },
+      "transform": { "position": [0.52, 1.35, -1.22], "scale": 1.15 },
+      "components": {
+        "Firefly": { "index": 1, "captured": false },
+        "RayInteractable": {},
+        "AudioSource": { "src": "./audio/chime.mp3", "maxInstances": 3, "playbackMode": "fade-restart" }
+      }
+    },
+    {
+      "id": "firefly-three",
+      "name": "Firefly Three",
+      "metadata": { "iwsdk.validation": { "allowFloating": true } },
+      "content": { "type": "asset", "asset": "roomloom-firefly" },
+      "transform": { "position": [0.12, 0.98, -0.78], "scale": 1.15 },
+      "components": {
+        "Firefly": { "index": 2, "captured": false },
+        "RayInteractable": {},
+        "AudioSource": { "src": "./audio/chime.mp3", "maxInstances": 3, "playbackMode": "fade-restart" }
+      }
+    },
+    {
+      "id": "roomloom-panel",
+      "name": "Roomloom Control Panel",
+      "content": { "type": "asset", "asset": "roomloom-panel" },
+      "transform": { "position": [0, 1.72, -1.95], "scale": 0.3 },
+      "components": { "RayInteractable": {} }
+    },
+    {
+      "id": "warm-key",
+      "transform": { "position": [-2, 3.5, 1], "rotationDeg": [-48, -25, 0] },
+      "components": {
+        "com.iwsdk.components.DirectionalLight": {
+          "color": [1, 0.82, 0.56, 1], "intensity": 2.2, "castShadow": true
+        }
+      }
+    },
+    {
+      "id": "soft-fill",
+      "components": {
+        "com.iwsdk.components.AmbientLight": { "color": [0.35, 0.62, 0.56, 1], "intensity": 0.72 }
+      }
+    }
+  ]
+}
