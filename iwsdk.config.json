@@ -41,6 +41,18 @@
       "physics": false,
       "sceneUnderstanding": true,
       "environmentRaycast": true,
+      "gaze": {
+        "coneAngle": 0.18,
+        "maxRayLength": 3,
+        "dwellWindowSeconds": 0.35,
+        "filterMinCutoff": 1.2,
+        "filterBeta": 0.02,
+        "suppressWhenDirectPointerActive": true,
+        "pointerTransformFollowsHand": true,
+        "trackingLossGraceSeconds": 0.4,
+        "logDiagnostics": false,
+        "showDebugReticle": false
+      },
       "spatialUI": {
         "kit": "horizon"
       }

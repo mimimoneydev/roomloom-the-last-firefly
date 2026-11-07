@@ -1,0 +1,32 @@
+<!doctype html><html lang="en"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Roomloom field test</title>
+<style>body{font:17px system-ui;max-width:850px;margin:32px auto;padding:0 20px;color:#173c31;background:#f3f7ef}label{display:block;margin:16px 0}input,select,textarea,button{font:inherit;padding:9px;max-width:100%;box-sizing:border-box}textarea{width:100%;height:100px}button{cursor:pointer}pre{white-space:pre-wrap;overflow-wrap:anywhere;background:white;padding:16px}fieldset{margin:20px 0}small{display:block}code{background:#e6efe6;padding:2px 5px}</style>
+<h1>Roomloom field test</h1>
+<p>Use <a href="./?test=1&amp;hands=1">the instrumented hands-only build</a> on the same origin and browser profile. Controllers must be <strong>physically unpaired</strong> for a hands-only run. Play seated, then save the report in the game, leave immersive mode and return here.</p>
+<p><code>?test=1</code> enables measurement. <code>&amp;hands=1</code> refuses controller selections and records <code>handsOnlySession</code>. Both are required for competition evidence. Run in at least five rooms the developer has never authored, with five unfamiliar testers and no coaching. Never label emulator measurements as Quest performance.</p>
+<label>Participant code (use T1–T5, no names) <input id="participant" placeholder="T1"></label>
+<label>Device / evidence source <select id="device"><option>Not verified</option><option>Physical Quest 3</option><option>Physical Quest 3S</option><option>Other physical Quest</option><option>Browser emulator</option></select></label>
+<label>Room description <input id="room" placeholder="Small table, narrow seated space"></label>
+<label>Route topology / surface sources reported <input id="topology" placeholder="branch, wall + table; or chain, table only"></label>
+<label>Emulator profile used for FoV check <select id="fov"><option>Not recorded</option><option>metaQuest3</option><option>metaVRGlasses</option><option>Both</option></select></label>
+<label>Unfamiliar tester? <select id="newTester"><option>Not recorded</option><option>Yes, no previous Roomloom session</option><option>No</option></select></label>
+<label>Completed without coaching? <select id="uncoached"><option>Not tested</option><option>Yes</option><option>No</option></select></label>
+<label>Hands alone from launch to completion? <select id="hands"><option>Not tested</option><option>Yes</option><option>No</option></select></label>
+<label>Guided onboarding completed (look → pinch → arrival)? <select id="onboarding"><option>Not tested</option><option>Yes, unaided</option><option>Yes, with prompting</option><option>No</option><option>Skipped</option></select></label>
+<label>Positional audio: does the chime move with the light? <select id="audio"><option>Not tested</option><option>Yes</option><option>No</option></select></label>
+<fieldset id="checks"><legend>Observed scenarios — leave untested cases pending</legend></fieldset>
+<label>Where did the tester hesitate? What failed? <textarea id="notes"></textarea></label>
+<button id="refresh">Refresh measurements</button> <button id="export">Download measurements and notes</button>
+<p id="summary"></p><pre id="data"></pre>
+<script>
+const scenarios=['Launch and permissions','Required room scan (no floating puzzle)','Hands-only placement with controllers unpaired','Pinch-and-hold confirm','Near-poke on a resting place','Gaze-and-pinch fallback','Lantern choice and undo','Guided onboarding','Round completion and summary','Restart','Contrast controls','Permission refusal / labelled preview','Tracking loss and recovery','Pause / interruption','Close and reopen with residents restored','Second unfamiliar room yields a different route','FoV panel fits the device'];
+for(const name of scenarios){const l=document.createElement('label');l.textContent=name+' ';const s=document.createElement('select');s.dataset.scenario=name;for(const value of ['Pending','Pass','Fail']){const o=document.createElement('option');o.textContent=value;s.append(o)}l.append(s);document.querySelector('#checks').append(l)}
+let reports=[];
+function refresh(){try{reports=JSON.parse(localStorage.getItem('roomloom.playtests.v1')||'[]');if(!Array.isArray(reports))reports=[]}catch{reports=[]}
+document.querySelector('#data').textContent=JSON.stringify(reports,null,2);
+const r=reports.at(-1);
+document.querySelector('#summary').textContent=r?`${reports.length} saved reports. Average ${r.averageFps?.toFixed(1)??'no samples'} fps; lowest one-second window ${r.minimumOneSecondFps?.toFixed(1)??'no samples'} fps; seconds below 60: ${r.secondsBelow60??'?'}; draw calls ${r.drawCalls??'?'}; quality tier ${r.qualityTier??'?'}. Hands-only mode ${r.handsOnlyMode?'ON':'OFF'}, handsOnlySession ${r.handsOnlySession===true?'PROVEN':'NOT PROVEN'}, hand sources ${r.handSourcesSeen??'?'}, controller sources ${r.controllerSourcesSeen??'?'}, blocked controller selections ${r.blockedControllerSelections??'?'}. Device source must still be verified manually.`:'No measurements saved yet. No performance claim can be made.'}
+document.querySelector('#refresh').onclick=refresh;
+document.querySelector('#export').onclick=()=>{refresh();const notes={};for(const id of ['participant','device','room','topology','fov','newTester','uncoached','hands','onboarding','audio','notes'])notes[id]=document.getElementById(id).value;notes.scenarios=Array.from(document.querySelectorAll('[data-scenario]'),s=>({scenario:s.dataset.scenario,result:s.value}));const blob=new Blob([JSON.stringify({recordedAt:new Date().toISOString(),notes,reports},null,2)],{type:'application/json'});const url=URL.createObjectURL(blob);const a=document.createElement('a');a.href=url;a.download='roomloom-field-test.json';a.click();setTimeout(()=>URL.revokeObjectURL(url),1000)};
+refresh();
+</script></html>

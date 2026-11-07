@@ -13,6 +13,8 @@ import {
   Object3D,
   RingGeometry,
   SphereGeometry,
+  Shape,
+  ExtrudeGeometry,
   TorusGeometry,
 } from '@iwsdk/core';
 
@@ -24,7 +26,7 @@ const leaf = new MeshStandardMaterial({ color: 0x55c68b, roughness: 0.62 });
 const gold = new MeshStandardMaterial({
   color: 0xffd275,
   emissive: new Color(0xffb13b),
-  emissiveIntensity: 1.5,
+  emissiveIntensity: 0.65,
   roughness: 0.35,
 });
 
@@ -121,7 +123,7 @@ export function createFirefly(): Object3D {
   const coreMaterial = new MeshStandardMaterial({
     color: 0xfff0ad,
     emissive: new Color(0xffcb51),
-    emissiveIntensity: 3.4,
+    emissiveIntensity: 0.85,
     roughness: 0.15,
   });
   const core = namedMesh('LumenCore', new SphereGeometry(0.052, 24, 18), coreMaterial);
@@ -171,5 +173,45 @@ export function createFirefly(): Object3D {
   return firefly;
 }
 
+// A broad four-wing silhouette distinguishes moths even without their violet color.
+// Origin is body center; +Y up, +Z front; envelope ~0.30 x 0.25 x 0.30 m.
+export function createMoonMoth(): Object3D {
+  const moth = new Group();
+  moth.name = 'MoonMoth';
+  const silk = new MeshStandardMaterial({ color: 0xdac8ff, emissive: 0xa78bfa, emissiveIntensity: 0.45, roughness: 0.7 });
+  const body = namedMesh('MothBody', new SphereGeometry(0.035, 16, 12), silk);
+  body.scale.set(0.65, 2.1, 0.7);
+  moth.add(body);
+  const shape = new Shape();
+  shape.moveTo(0, 0);
+  shape.bezierCurveTo(0.035, 0.12, 0.14, 0.12, 0.13, 0.045);
+  shape.bezierCurveTo(0.12, 0.015, 0.07, -0.005, 0, 0);
+  const wingGeometry = new ExtrudeGeometry(shape, { depth: 0.006, bevelEnabled: false, curveSegments: 10 });
+  for (const side of [-1, 1]) {
+    const wings = new Group();
+    wings.name = side < 0 ? 'MothWingsLeft' : 'MothWingsRight';
+    wings.scale.x = side;
+    wings.position.x = side * 0.008;
+    wings.add(namedMesh('UpperWing', wingGeometry, silk));
+    const lower = namedMesh('LowerWing', wingGeometry, silk);
+    lower.scale.set(0.78, -0.72, 1);
+    lower.position.y = -0.01;
+    wings.add(lower);
+    moth.add(wings);
+  }
+  const target = namedMesh('MothComfortTarget', new SphereGeometry(0.15, 12, 8),
+    new MeshBasicMaterial({ transparent: true, opacity: 0, depthWrite: false }));
+  target.userData.iwsdkPreviewBounds = 'exclude';
+  moth.add(target);
+  return moth;
+}
+
 export const roomloomGarden = createGarden();
-export const roomloomFirefly = createFirefly();
+export const roomloomMoth = createMoonMoth();
+export const roomloomFirefly = new Group();
+const fireflyFamily = createFirefly();
+fireflyFamily.name = 'FireflyFamily';
+const mothFamily = createMoonMoth();
+mothFamily.name = 'MothFamily';
+mothFamily.visible = false;
+roomloomFirefly.add(fireflyFamily, mothFamily);

@@ -1,0 +1,65 @@
+name: Deploy Roomloom to GitHub Pages
+
+# WebXR requires a secure context. GitHub Pages serves the build over HTTPS.
+# One-time repo setup: Settings -> Pages -> Build and deployment -> Source = "GitHub Actions".
+# The published URL must stay live and unchanged until the winner announcement (~Dec 11, 2026).
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Use Node.js 24
+        uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+          cache: npm
+
+      - name: Install from lockfile
+        run: npm ci --no-audit --no-fund
+
+      - name: Verify
+        run: npm run typecheck && npm test
+
+      - name: Build
+        run: npm run build
+
+      # vite.config.ts sets base: './' so the build works at the /<repo>/ subpath.
+      # .nojekyll stops GitHub Pages from dropping files/dirs whose names start with '_'.
+      - name: Prepare Pages artifact
+        run: touch dist/.nojekyll
+
+      - name: Configure Pages
+        uses: actions/configure-pages@v5
+
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: dist
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4

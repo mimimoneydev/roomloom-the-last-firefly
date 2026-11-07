@@ -3,9 +3,24 @@
   "units": "meters",
   "components": {
     "com.iwsdk.components.IBLGradient": {
-      "sky": [0.38, 0.62, 0.55, 1],
-      "equator": [0.16, 0.32, 0.27, 1],
-      "ground": [0.05, 0.08, 0.07, 1],
+      "sky": [
+        0.38,
+        0.62,
+        0.55,
+        1
+      ],
+      "equator": [
+        0.16,
+        0.32,
+        0.27,
+        1
+      ],
+      "ground": [
+        0.05,
+        0.08,
+        0.07,
+        1
+      ],
       "intensity": 1.1
     }
   },
@@ -16,8 +31,16 @@
         "id": "hero",
         "role": "hero",
         "projection": "perspective",
-        "position": [0, 1.52, 1.15],
-        "target": [0, 1.1, -1.25],
+        "position": [
+          0,
+          1.52,
+          1.15
+        ],
+        "target": [
+          0,
+          1.1,
+          -1.25
+        ],
         "fov": 46
       }
     ]
@@ -26,69 +49,459 @@
     {
       "id": "roomloom-garden",
       "name": "Roomloom Garden",
-      "metadata": { "iwsdk.validation": { "allowFloating": true } },
-      "content": { "type": "asset", "asset": "roomloom-garden", "castShadow": true },
-      "transform": { "position": [0, 0.72, -1.32] },
+      "metadata": {
+        "iwsdk.validation": {
+          "allowFloating": true
+        }
+      },
+      "content": {
+        "type": "asset",
+        "asset": "roomloom-garden",
+        "castShadow": true
+      },
+      "transform": {
+        "position": [
+          0,
+          0.72,
+          -1.32
+        ]
+      },
       "components": {
-        "RoomloomState": { "phase": 0, "found": 0, "total": 3, "complete": false, "highContrast": false }
+        "RayInteractable": {},
+        "RoomloomState": {
+          "phase": 0,
+          "found": 0,
+          "total": 3,
+          "complete": false,
+          "highContrast": false
+        },
+        "PokeInteractable": {}
       }
     },
     {
       "id": "firefly-one",
       "name": "Firefly One",
-      "metadata": { "iwsdk.validation": { "allowFloating": true } },
-      "content": { "type": "asset", "asset": "roomloom-firefly" },
-      "transform": { "position": [-0.48, 1.12, -1.0], "scale": 1.15 },
+      "metadata": {
+        "iwsdk.validation": {
+          "allowFloating": true
+        }
+      },
+      "content": {
+        "type": "asset",
+        "asset": "roomloom-firefly"
+      },
+      "transform": {
+        "position": [
+          -0.48,
+          1.12,
+          -1.0
+        ],
+        "scale": 1.15
+      },
       "components": {
-        "Firefly": { "index": 0, "captured": false },
+        "Firefly": {
+          "index": 0,
+          "captured": false
+        },
         "RayInteractable": {},
-        "AudioSource": { "src": "./audio/chime.mp3", "maxInstances": 3, "playbackMode": "fade-restart" }
+        "AudioSource": {
+          "src": "./audio/chime.mp3",
+          "maxInstances": 3,
+          "playbackMode": "fade-restart"
+        },
+        "PokeInteractable": {}
       }
     },
     {
       "id": "firefly-two",
       "name": "Firefly Two",
-      "metadata": { "iwsdk.validation": { "allowFloating": true } },
-      "content": { "type": "asset", "asset": "roomloom-firefly" },
-      "transform": { "position": [0.52, 1.35, -1.22], "scale": 1.15 },
+      "metadata": {
+        "iwsdk.validation": {
+          "allowFloating": true
+        }
+      },
+      "content": {
+        "type": "asset",
+        "asset": "roomloom-firefly"
+      },
+      "transform": {
+        "position": [
+          0.52,
+          1.35,
+          -1.22
+        ],
+        "scale": 1.15
+      },
       "components": {
-        "Firefly": { "index": 1, "captured": false },
+        "Firefly": {
+          "index": 1,
+          "captured": false
+        },
         "RayInteractable": {},
-        "AudioSource": { "src": "./audio/chime.mp3", "maxInstances": 3, "playbackMode": "fade-restart" }
+        "AudioSource": {
+          "src": "./audio/chime.mp3",
+          "maxInstances": 3,
+          "playbackMode": "fade-restart"
+        },
+        "PokeInteractable": {}
       }
     },
     {
       "id": "firefly-three",
       "name": "Firefly Three",
-      "metadata": { "iwsdk.validation": { "allowFloating": true } },
-      "content": { "type": "asset", "asset": "roomloom-firefly" },
-      "transform": { "position": [0.12, 0.98, -0.78], "scale": 1.15 },
+      "metadata": {
+        "iwsdk.validation": {
+          "allowFloating": true
+        }
+      },
+      "content": {
+        "type": "asset",
+        "asset": "roomloom-firefly"
+      },
+      "transform": {
+        "position": [
+          0.12,
+          0.98,
+          -0.78
+        ],
+        "scale": 1.15
+      },
       "components": {
-        "Firefly": { "index": 2, "captured": false },
+        "Firefly": {
+          "index": 2,
+          "captured": false
+        },
         "RayInteractable": {},
-        "AudioSource": { "src": "./audio/chime.mp3", "maxInstances": 3, "playbackMode": "fade-restart" }
+        "AudioSource": {
+          "src": "./audio/chime.mp3",
+          "maxInstances": 3,
+          "playbackMode": "fade-restart"
+        },
+        "PokeInteractable": {}
       }
     },
     {
       "id": "roomloom-panel",
       "name": "Roomloom Control Panel",
-      "content": { "type": "asset", "asset": "roomloom-panel" },
-      "transform": { "position": [0, 1.72, -1.95], "scale": 0.3 },
-      "components": { "RayInteractable": {} }
+      "content": {
+        "type": "asset",
+        "asset": "roomloom-panel"
+      },
+      "transform": {
+        "position": [
+          0,
+          1.72,
+          -1.95
+        ],
+        "scale": 0.22
+      },
+      "components": {
+        "RayInteractable": {},
+        "PokeInteractable": {}
+      }
     },
     {
       "id": "warm-key",
-      "transform": { "position": [-2, 3.5, 1], "rotationDeg": [-48, -25, 0] },
+      "transform": {
+        "position": [
+          -2,
+          3.5,
+          1
+        ],
+        "rotationDeg": [
+          -48,
+          -25,
+          0
+        ]
+      },
       "components": {
         "com.iwsdk.components.DirectionalLight": {
-          "color": [1, 0.82, 0.56, 1], "intensity": 2.2, "castShadow": true
+          "color": [
+            1,
+            0.82,
+            0.56,
+            1
+          ],
+          "intensity": 2.2,
+          "castShadow": true
         }
       }
     },
     {
       "id": "soft-fill",
       "components": {
-        "com.iwsdk.components.AmbientLight": { "color": [0.35, 0.62, 0.56, 1], "intensity": 0.72 }
+        "com.iwsdk.components.AmbientLight": {
+          "color": [
+            0.35,
+            0.62,
+            0.56,
+            1
+          ],
+          "intensity": 0.72
+        }
+      }
+    },
+    {
+      "id": "resting-place-0",
+      "name": "Resting Place 1",
+      "content": {
+        "type": "asset",
+        "asset": "roomloom-rest"
+      },
+      "transform": {
+        "position": [
+          -0.48,
+          0.92,
+          -1
+        ]
+      },
+      "components": {
+        "RestingPlace": {
+          "index": 0
+        },
+        "RayInteractable": {},
+        "PokeInteractable": {}
+      }
+    },
+    {
+      "id": "resting-place-1",
+      "name": "Resting Place 2",
+      "content": {
+        "type": "asset",
+        "asset": "roomloom-rest"
+      },
+      "transform": {
+        "position": [
+          0.52,
+          1.15,
+          -1.22
+        ]
+      },
+      "components": {
+        "RestingPlace": {
+          "index": 1
+        },
+        "RayInteractable": {},
+        "PokeInteractable": {}
+      }
+    },
+    {
+      "id": "resting-place-2",
+      "name": "Resting Place 3",
+      "content": {
+        "type": "asset",
+        "asset": "roomloom-rest"
+      },
+      "transform": {
+        "position": [
+          0.12,
+          0.78,
+          -0.78
+        ]
+      },
+      "components": {
+        "RestingPlace": {
+          "index": 2
+        },
+        "RayInteractable": {},
+        "PokeInteractable": {}
+      }
+    },
+    {
+      "id": "relay-socket-0",
+      "name": "Lantern Socket A",
+      "content": {
+        "type": "asset",
+        "asset": "roomloom-rest"
+      },
+      "transform": {
+        "position": [
+          -0.55,
+          0.79,
+          -1.32
+        ]
+      },
+      "components": {
+        "RelaySocket": {
+          "index": 0
+        },
+        "RayInteractable": {},
+        "PokeInteractable": {}
+      }
+    },
+    {
+      "id": "relay-socket-1",
+      "name": "Lantern Socket B",
+      "content": {
+        "type": "asset",
+        "asset": "roomloom-rest"
+      },
+      "transform": {
+        "position": [
+          0.55,
+          0.79,
+          -1.32
+        ]
+      },
+      "components": {
+        "RelaySocket": {
+          "index": 1
+        },
+        "RayInteractable": {},
+        "PokeInteractable": {}
+      }
+    },
+    {
+      "id": "garden-resident-0",
+      "name": "Garden Resident 1",
+      "content": {
+        "type": "asset",
+        "asset": "roomloom-firefly"
+      },
+      "transform": {
+        "position": [
+          0,
+          0.95,
+          -1.32
+        ],
+        "scale": 0.28
+      },
+      "components": {
+        "GardenResident": {
+          "index": 0
+        }
+      }
+    },
+    {
+      "id": "garden-resident-1",
+      "name": "Garden Resident 2",
+      "content": {
+        "type": "asset",
+        "asset": "roomloom-firefly"
+      },
+      "transform": {
+        "position": [
+          0,
+          0.95,
+          -1.32
+        ],
+        "scale": 0.28
+      },
+      "components": {
+        "GardenResident": {
+          "index": 1
+        }
+      }
+    },
+    {
+      "id": "garden-resident-2",
+      "name": "Garden Resident 3",
+      "content": {
+        "type": "asset",
+        "asset": "roomloom-firefly"
+      },
+      "transform": {
+        "position": [
+          0,
+          0.95,
+          -1.32
+        ],
+        "scale": 0.28
+      },
+      "components": {
+        "GardenResident": {
+          "index": 2
+        }
+      }
+    },
+    {
+      "id": "sound-attention",
+      "name": "Roomloom attention sound",
+      "components": {
+        "RoomloomSound": {
+          "cue": "attention"
+        },
+        "AudioSource": {
+          "src": "./audio/attention.wav",
+          "maxInstances": 2,
+          "playbackMode": "fade-restart",
+          "positional": true,
+          "refDistance": 0.35,
+          "rolloffFactor": 1.4,
+          "maxDistance": 4,
+          "distanceModel": "inverse"
+        }
+      }
+    },
+    {
+      "id": "sound-hop",
+      "name": "Roomloom hop sound",
+      "components": {
+        "RoomloomSound": {
+          "cue": "hop"
+        },
+        "AudioSource": {
+          "src": "./audio/hop.wav",
+          "maxInstances": 2,
+          "playbackMode": "fade-restart",
+          "positional": true,
+          "refDistance": 0.35,
+          "rolloffFactor": 1.4,
+          "maxDistance": 4,
+          "distanceModel": "inverse"
+        }
+      }
+    },
+    {
+      "id": "sound-arrival",
+      "name": "Roomloom arrival sound",
+      "components": {
+        "RoomloomSound": {
+          "cue": "arrival"
+        },
+        "AudioSource": {
+          "src": "./audio/arrival.wav",
+          "maxInstances": 2,
+          "playbackMode": "fade-restart",
+          "positional": true,
+          "refDistance": 0.35,
+          "rolloffFactor": 1.4,
+          "maxDistance": 4,
+          "distanceModel": "inverse"
+        }
+      }
+    },
+    {
+      "id": "sound-growth",
+      "name": "Roomloom growth sound",
+      "components": {
+        "RoomloomSound": {
+          "cue": "growth"
+        },
+        "AudioSource": {
+          "src": "./audio/growth.wav",
+          "maxInstances": 2,
+          "playbackMode": "fade-restart",
+          "positional": true,
+          "refDistance": 0.35,
+          "rolloffFactor": 1.4,
+          "maxDistance": 4,
+          "distanceModel": "inverse"
+        }
+      }
+    },
+    {
+      "id": "sound-ambient",
+      "name": "Roomloom ambient bed",
+      "components": {
+        "AudioSource": {
+          "src": "./audio/ambient.wav",
+          "volume": 0.16,
+          "loop": true,
+          "autoplay": true,
+          "positional": false,
+          "maxInstances": 1
+        }
       }
     }
   ]

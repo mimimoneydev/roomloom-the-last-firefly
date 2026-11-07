@@ -1,0 +1,79 @@
+{
+  "date": "2026-11-05",
+  "runtime": "IWER Meta Quest 3 emulator",
+  "placed": {
+    "entityIndex": 13,
+    "active": true,
+    "name": "Roomloom Garden",
+    "components": [
+      {
+        "componentId": "RoomloomState",
+        "values": {
+          "phase": 1,
+          "found": 0,
+          "total": 3,
+          "complete": false,
+          "highContrast": false,
+          "placement": "saved",
+          "species": "firefly",
+          "streak": 0,
+          "surfaceCount": 3
+        }
+      }
+    ],
+    "_tab": {
+      "id": "tab-mw3ljvxw-yvv5g9",
+      "generation": 1
+    }
+  },
+  "complete": {
+    "entityIndex": 13,
+    "active": true,
+    "name": "Roomloom Garden",
+    "components": [
+      {
+        "componentId": "RoomloomState",
+        "values": {
+          "phase": 2,
+          "found": 3,
+          "total": 3,
+          "complete": true,
+          "highContrast": false,
+          "placement": "saved",
+          "species": "firefly",
+          "streak": 1,
+          "surfaceCount": 3
+        }
+      }
+    ],
+    "_tab": {
+      "id": "tab-mw3ljvxw-yvv5g9",
+      "generation": 1
+    }
+  },
+  "restored": {
+    "entityIndex": 13,
+    "active": true,
+    "name": "Roomloom Garden",
+    "components": [
+      {
+        "componentId": "RoomloomState",
+        "values": {
+          "phase": 1,
+          "found": 0,
+          "total": 3,
+          "complete": false,
+          "highContrast": false,
+          "placement": "saved",
+          "species": "firefly",
+          "streak": 1,
+          "surfaceCount": 3
+        }
+      }
+    ],
+    "_tab": {
+      "id": "tab-mw3ljvxw-yvv5g9",
+      "generation": 1
+    }
+  }
+}
