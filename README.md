@@ -44,7 +44,7 @@ The deployable static build is written to `dist/`; `vite.config.ts` sets `base: 
 
 ## Deploy
 
-[`.github/workflows/deploy.yml`](.github/workflows/deploy.yml) builds `dist/` from a clean `npm ci`, runs typecheck and tests, and publishes to GitHub Pages on every push to `main` (also available as a manual workflow run). One-time setup: **Settings → Pages → Build and deployment → Source = GitHub Actions**. WebXR requires a secure context; Pages serves over HTTPS. Keep the public URL live and unchanged until the Winner Announcement (on or around December 11, 2026).
+[`.github/workflows/deploy.yml`](.github/workflows/deploy.yml) builds `dist/` from a clean `npm ci`, runs typecheck and tests, and publishes to GitHub Pages on every push to `main` (also available as a manual workflow run). `actions/configure-pages@v5` with `enablement: true` turns on Pages and sets the **GitHub Actions** source automatically; if your organisation blocks that API, do it once manually under **Settings → Pages → Build and deployment → Source**. WebXR requires a secure context; Pages serves over HTTPS. Keep the public URL live and unchanged until the Winner Announcement (on or around December 11, 2026).
 
 ## Play and return
 

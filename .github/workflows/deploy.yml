@@ -1,7 +1,9 @@
 name: Deploy Roomloom to GitHub Pages
 
 # WebXR requires a secure context. GitHub Pages serves the build over HTTPS.
-# One-time repo setup: Settings -> Pages -> Build and deployment -> Source = "GitHub Actions".
+# `actions/configure-pages` with enablement: true enables Pages and sets the
+# "GitHub Actions" source automatically. If your org forbids that API, set it once
+# manually: Settings -> Pages -> Build and deployment -> Source = "GitHub Actions".
 # The published URL must stay live and unchanged until the winner announcement (~Dec 11, 2026).
 
 on:
@@ -47,6 +49,10 @@ jobs:
 
       - name: Configure Pages
         uses: actions/configure-pages@v5
+        with:
+          # Enables Pages with the "GitHub Actions" source on a fresh repo.
+          # Requires the pages: write permission above.
+          enablement: true
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3

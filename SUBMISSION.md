@@ -120,7 +120,7 @@ These cannot be generated from the repository. Supply each one, then remove its 
 
 | # | Owner input | Why it blocks | Status |
 | --- | --- | --- | --- |
-| 1 | Live public HTTPS URL (expected: `https://mimimoneydev.github.io/roomloom-the-last-firefly/` once Pages is enabled and the workflow has run) | Rules require a playable project link; an undeployed repo is a Stage One fail | NOT SUPPLIED |
+| 1 | Live public HTTPS URL (expected: `https://mimimoneydev.github.io/roomloom-the-last-firefly/`). The deploy workflow enables Pages automatically and publishes `dist/` on every push to `main`; confirm the run is green and the URL loads before pasting it | Rules require a playable project link; an undeployed repo is a Stage One fail | NOT SUPPLIED |
 | 2 | Public YouTube/Vimeo video URL, < 3:00, real hands-only Quest capture in two rooms | Missing video is an explicit disqualification trigger | NOT SUPPLIED |
 | 3 | Representative's real name, email and team roster (solo or named members) | Team info is a required form field | NOT SUPPLIED |
 | 4 | Confirm target launch date in §2 | Required description topic; the current value is a proposed plan | PROPOSED — CONFIRM |

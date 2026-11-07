@@ -31,7 +31,7 @@ Legend: **DONE** = implemented and verified in the repo; **CODE DONE / DEVICE PE
 - `SUBMISSION.md` created; the tagline and demo opening are restored in `README.md` under **Submission**. Owner-supplied values are isolated in §9 of `SUBMISSION.md`; none are fabricated.
 - Dead IWSDK starter modules `src/robot.ts`, `src/panel.ts`, `src/robot-component.ts` removed with `git rm` (no references anywhere in the repo).
 - `.github/workflows/deploy.yml` added: clean `npm ci`, typecheck, tests, `npm run build`, `dist/.nojekyll`, GitHub Pages artifact and deploy, triggered on push to `main` and manually. `vite.config.ts` already sets `base: './'`.
-- All working-tree changes are committed in the competition-build commit (verify with `git log -1`); `git status --short` is clean apart from any later device evidence you add.
+- All working-tree changes are committed in the competition-build commit (verify with `git log -1`) and pushed to `origin/main`; `git status --short` is clean. The first CI run failed at **Configure Pages** because Pages had never been enabled; the workflow now uses `actions/configure-pages@v5` with `enablement: true` so a fresh repo deploys without manual settings.
 
 ### Verified locally on 2026-11-07
 
@@ -48,7 +48,7 @@ iwsdk ecs systems                       # 16 systems; RoomloomSystem, GazeSystem
 ### Still OPEN — none of these can be completed from this repo
 
 1. **Clean reinstall**: `npm ci` is still blocked locally by the sandbox bulk-delete guard (`[safe-delete][SAFE_DELETE_BULK_CONFIRM_REQUIRED]`, 62 targets in `node_modules/@dimforge`). The current install is complete enough for typecheck/tests/build to pass; the deploy workflow performs a clean `npm ci` on a fresh CI runner, which is the authoritative clean-install proof. Run it once locally in an unrestricted shell before the final submission if you want a second confirmation.
-2. **Public HTTPS URL**: enable Pages (Settings → Pages → Source = GitHub Actions), push `main`, wait for the workflow, then verify the URL in Quest Browser. Keep it live until ~Dec 11.
+2. **Public HTTPS URL**: the workflow now enables Pages itself; wait for the green **Deploy Roomloom to GitHub Pages** run, then copy the live URL into `SUBMISSION.md` §9 and verify it in Quest Browser. Keep it live until ~Dec 11. The expected URL is `https://mimimoneydev.github.io/roomloom-the-last-firefly/`.
 3. **<3 min real-capture video** and **4–6 real-device screenshots** — physical Quest, hands only, two rooms, no AI-generated footage.
 4. **Five physical-Quest field-test JSONs** — `handsOnlySession: true`, ten scenarios each, min one-second FPS ≥ 60, draw calls, different route topologies. Until these exist, no 60 fps or hands-only hardware claim may appear in `SUBMISSION.md` or the Devpost form.
 5. **FoV screenshots** for `metaQuest3` and `metaVRGlasses` (switch `iwsdk.config.json` `dev.emulator.device` between runs).
@@ -293,7 +293,8 @@ The round is three rescues with no fail state and no score (`src/roomloom.ts:289
 
 **OPEN — device, account and owner inputs (the remaining gap to the $100K prize)**
 
-- [ ] `git push origin main`; public HTTPS URL live, opens in Quest Browser, stays up until ~Dec 11.
+- [x] Competition build committed and pushed to `origin/main` (`bc3694d`); working tree clean.
+- [ ] Green GitHub Pages deploy run; public HTTPS URL live, opens in Quest Browser, stays up until ~Dec 11.
 - [ ] Meta account with Developer Access + Meta VR Start membership + Devpost registration confirmed; Division verified as New Experience (all code post–Sep 24, 2026) or switched to Adapted.
 - [ ] <3 min public YouTube/Vimeo video of real hands-only Quest gameplay in two different rooms; no AI-generated footage.
 - [ ] Five physical-Quest field-test JSONs: hands-only from launch to completion, ten scenarios each, min one-second FPS ≥ 60, draw calls, different route topologies per room.
