@@ -4,7 +4,7 @@ Single source of truth for everything pasted into the Devpost form. Keep the rep
 
 **Deadline: November 18, 2026, 12:00:00 PM PT.** Do not modify the submission after the deadline. The hosted build must stay available until the Winner Announcement (on or around December 11, 2026).
 
-> **Read before pasting.** Most of this file is finished copy. A small number of values cannot be produced from a repository — a real device video URL, the live public URL, the Representative's real name/email, and confirmation of the eligibility accounts. They are collected once, in the **Owner inputs** table at the end. Every row there is a hard blocker: do not submit with an unresolved row. Nothing in this file claims a performance number or a hands-only result that has not been measured on a physical Quest.
+> **Read before pasting.** Most of this file is finished copy. The public HTTPS URL is live and verified below. The remaining values cannot be produced from a repository — a real device video URL, the Representative's real name/email, and confirmation of the eligibility accounts. They are collected once in the **Owner inputs** table at the end. Every unresolved row there is a hard blocker: do not submit with an unresolved row. Nothing in this file claims a performance number or a hands-only result that has not been measured on a physical Quest.
 
 ---
 
@@ -17,7 +17,7 @@ Single source of truth for everything pasted into the Devpost form. Keep the rep
 | Track | **Gaming** |
 | Division | **New Experience** (all project code was created after September 24, 2026; the git history starts 2026-11-05) |
 | Built with | Immersive Web SDK (IWSDK) 1.0.1, WebXR, TypeScript, Vite, Three.js (via `@iwsdk/core`) |
-| Project link | Public HTTPS GitHub Pages build produced by `.github/workflows/deploy.yml` — see Owner inputs |
+| Project link | **https://mimimoneydev.github.io/roomloom-the-last-firefly/** — public HTTPS GitHub Pages build produced by `.github/workflows/deploy.yml` (deploy run green, HTTPS enforced) |
 | Video link | Public YouTube or Vimeo URL, under 3 minutes — see Owner inputs |
 
 **Demo opening (for the video, recovered verbatim from the pre-deletion README):**
@@ -68,7 +68,7 @@ Roomloom is **fully usable with hands end-to-end, with controllers physically un
 5. When the room produces two branches, choose **Lantern A** or **Lantern B** and select a light to try its route. **Undo move** is always free. Then guide all three lights home; the round ends with a score, personal best, residents, streak and tomorrow's species.
 6. **High contrast** switches every text element, buttons and cards to a near-black / near-white palette with larger type and shape prefixes. **Pause** freezes flights. **Play again** restarts.
 7. **Preview (no room)** is an explicitly labelled, opt-in, non-mixed-reality demo for permission-denied devices. It is not the competition experience and is never the default state.
-8. For instrumented field tests open `<public-url>?test=1&hands=1`, play the full loop, press **Save test report**, exit immersive mode and open `<public-url>/test-report.html` on the same origin and browser profile. The report page adds device, participant code, room description, route topology and the observed-scenario checklist, then **Download measurements and notes**. The exported JSON is the evidence artifact.
+8. For instrumented field tests open `https://mimimoneydev.github.io/roomloom-the-last-firefly/?test=1&hands=1`, play the full loop, press **Save test report**, exit immersive mode and open `https://mimimoneydev.github.io/roomloom-the-last-firefly/test-report.html` on the same origin and browser profile. The report page adds device, participant code, room description, route topology and the observed-scenario checklist, then **Download measurements and notes**. The exported JSON is the evidence artifact.
 9. Verification commands for the source: `npm ci`, `npm run typecheck`, `npm test`, `npm run build`, `npm run preview`. See `README.md` and `REMEDIATION.md` for the full device-side field-test protocol.
 
 ---
@@ -116,11 +116,11 @@ Do **not** claim 60 fps, hands-only certification, or "tested on Quest" until a 
 
 ## 9. Owner inputs — hard blockers before submitting
 
-These cannot be generated from the repository. Supply each one, then remove its row.
+Rows 2–9 cannot be generated from the repository. Supply each one, then remove its row. Row 1 (the public URL) is resolved; only its **Quest Browser** check remains on hardware.
 
 | # | Owner input | Why it blocks | Status |
 | --- | --- | --- | --- |
-| 1 | Live public HTTPS URL (expected: `https://mimimoneydev.github.io/roomloom-the-last-firefly/`). The deploy workflow enables Pages automatically and publishes `dist/` on every push to `main`; confirm the run is green and the URL loads before pasting it | Rules require a playable project link; an undeployed repo is a Stage One fail | NOT SUPPLIED |
+| 1 | **SUPPLIED** — `https://mimimoneydev.github.io/roomloom-the-last-firefly/`. Pages enabled with the GitHub Actions source, deploy run green, HTTPS enforced, `index.html` / scene / UI / audio / test-report all return HTTP 200, headless Chromium loads the app with 0 console errors and 0 failed requests | Still open: verify it opens in **Quest Browser** on a physical headset | URL DONE / DEVICE CHECK PENDING |
 | 2 | Public YouTube/Vimeo video URL, < 3:00, real hands-only Quest capture in two rooms | Missing video is an explicit disqualification trigger | NOT SUPPLIED |
 | 3 | Representative's real name, email and team roster (solo or named members) | Team info is a required form field | NOT SUPPLIED |
 | 4 | Confirm target launch date in §2 | Required description topic; the current value is a proposed plan | PROPOSED — CONFIRM |
@@ -137,7 +137,7 @@ These cannot be generated from the repository. Supply each one, then remove its 
 - [ ] Title = Roomloom: The Last Firefly
 - [ ] Tagline (verify character limit on the live form)
 - [ ] Description = §2 (inspiration, how built, future plans, target launch date all present)
-- [ ] Project link = public HTTPS URL (Owner input 1)
+- [ ] Project link = `https://mimimoneydev.github.io/roomloom-the-last-firefly/` (paste into the form)
 - [ ] Video URL (Owner input 2)
 - [ ] Track = Gaming; Division = New Experience (or Adapted, per Owner input 9)
 - [ ] Screenshots = 4–6 real-device images

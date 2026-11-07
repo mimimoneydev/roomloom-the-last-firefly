@@ -44,7 +44,9 @@ The deployable static build is written to `dist/`; `vite.config.ts` sets `base: 
 
 ## Deploy
 
-[`.github/workflows/deploy.yml`](.github/workflows/deploy.yml) builds `dist/` from a clean `npm ci`, runs typecheck and tests, and publishes to GitHub Pages on every push to `main` (also available as a manual workflow run). `actions/configure-pages@v5` with `enablement: true` turns on Pages and sets the **GitHub Actions** source automatically; if your organisation blocks that API, do it once manually under **Settings → Pages → Build and deployment → Source**. WebXR requires a secure context; Pages serves over HTTPS. Keep the public URL live and unchanged until the Winner Announcement (on or around December 11, 2026).
+**Live build: https://mimimoneydev.github.io/roomloom-the-last-firefly/** (HTTPS enforced; deploy run green; desktop smoke test clean — Quest Browser verification still pending).
+
+[`.github/workflows/deploy.yml`](.github/workflows/deploy.yml) builds `dist/` from a clean `npm ci`, runs typecheck and tests, and publishes to GitHub Pages on every push to `main` (also available as a manual workflow run). The workflow asks `actions/configure-pages@v5` to enable Pages (`enablement: true`). GitHub's Actions token could not create the Pages site on this repo ("Resource not accessible by integration"), so Pages was enabled **once** with the authenticated GitHub CLI (`gh api -X POST repos/mimimoneydev/roomloom-the-last-firefly/pages -f build_type=workflow`); the equivalent UI step is **Settings → Pages → Build and deployment → Source = GitHub Actions**. Once that one-time step is done, every run configures and deploys successfully. WebXR requires a secure context; Pages serves over HTTPS. Keep the public URL live and unchanged until the Winner Announcement (on or around December 11, 2026).
 
 ## Play and return
 
@@ -71,6 +73,8 @@ npm run build
 git status --short      # must be clean before submission
 ```
 
+The live build can be smoke-tested with `curl -I https://mimimoneydev.github.io/roomloom-the-last-firefly/` (HTTP 200 for `index.html`, the scene, UI, audio and `test-report.html`) and a headless Chromium load (0 console errors, 0 failed requests, rendered canvas). That proves the hosted bundle, not immersive behaviour on hardware.
+
 The scene renderer validates `public/scenes/main.iwsdk.scene.json` (including the `PokeInteractable` components and audio fields) and returns `diagnostics: []`. With the managed browser running, `iwsdk browser logs` should show no errors and `iwsdk ecs systems` should list `RoomloomSystem`, `GazeSystem` and `InputSystem` with 10 ray and 10 poke interactables. Tests cover date boundaries, corrupted/denied storage, persistent milestones, relay choices and undo, obstacle-blocked flights, measured versus preview puzzles, vertical-plane samples, input provenance, hands-only enforcement, FoV distance, quality tiers, contrast palettes, tutorial progression, score and capability reporting.
 
 These are emulator and unit-test results. They are **not** hardware performance or hands-only certification.
@@ -79,7 +83,7 @@ These are emulator and unit-test results. They are **not** hardware performance 
 
 No physical Quest results have been recorded yet, so this repository makes no claim of 60 fps or hands-only certification on hardware. `SUBMISSION.md` lists every remaining device- and account-dependent blocker; `REMEDIATION.md` tracks their status.
 
-Use the hosted build with **`?test=1&hands=1`** on a physical Quest with controllers physically unpaired. `?test=1` enables measurement; `&hands=1` refuses controller selections and records `handsOnlySession`. A test-only **Save test report** control records frame timing, one-second FPS samples, draw calls, triangles, geometries, textures, the active quality tier, granted capabilities, input-source provenance, surface sources and timestamped interaction events. Measurements exclude paused/hidden periods and long suspension gaps; they are application frame-delivery measurements, not GPU profiling. The report never claims the device is physical on its own.
+Use the hosted build at `https://mimimoneydev.github.io/roomloom-the-last-firefly/?test=1&hands=1` on a physical Quest with controllers physically unpaired. `?test=1` enables measurement; `&hands=1` refuses controller selections and records `handsOnlySession`. A test-only **Save test report** control records frame timing, one-second FPS samples, draw calls, triangles, geometries, textures, the active quality tier, granted capabilities, input-source provenance, surface sources and timestamped interaction events. Measurements exclude paused/hidden periods and long suspension gaps; they are application frame-delivery measurements, not GPU profiling. The report never claims the device is physical on its own.
 
 After saving, leave immersive mode and open `test-report.html` on the same origin and browser profile. Add the device, participant code (T1–T5), room description, route topology, FoV profile, pass/fail/pending results and hesitation notes; download the JSON into `artifacts/room-evidence/`. No notes or room coordinates are uploaded; reports stay in local storage (last ten sessions).
 

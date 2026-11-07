@@ -9,7 +9,7 @@ These are **instructions to execute**, not a report. Work them in priority order
 
 ## Implementation status — 2026-11-07
 
-Legend: **DONE** = implemented and verified in the repo; **CODE DONE / DEVICE PENDING** = shipping code and unit tests exist, but the competition claim still needs physical-Quest evidence; **OPEN** = cannot be produced from this repository (account, device, video, or owner decision).
+Legend: **DONE** = implemented and verified in the repo; **OPEN** = cannot be produced from this repository (account, device, video, or owner decision). Code-backed features are DONE; the *claims* they enable (60 fps, hands-only certification, room robustness) still need physical-Quest evidence listed under "Still OPEN".
 
 ### P1 / P2 code — DONE
 
@@ -30,10 +30,11 @@ Legend: **DONE** = implemented and verified in the repo; **CODE DONE / DEVICE PE
 
 - `SUBMISSION.md` created; the tagline and demo opening are restored in `README.md` under **Submission**. Owner-supplied values are isolated in §9 of `SUBMISSION.md`; none are fabricated.
 - Dead IWSDK starter modules `src/robot.ts`, `src/panel.ts`, `src/robot-component.ts` removed with `git rm` (no references anywhere in the repo).
-- `.github/workflows/deploy.yml` added: clean `npm ci`, typecheck, tests, `npm run build`, `dist/.nojekyll`, GitHub Pages artifact and deploy, triggered on push to `main` and manually. `vite.config.ts` already sets `base: './'`.
-- All working-tree changes are committed in the competition-build commit (verify with `git log -1`) and pushed to `origin/main`; `git status --short` is clean. The first CI run failed at **Configure Pages** because Pages had never been enabled; the workflow now uses `actions/configure-pages@v5` with `enablement: true` so a fresh repo deploys without manual settings.
+- `.github/workflows/deploy.yml` added: clean `npm ci`, typecheck, tests, `npm run build`, `dist/.nojekyll`, GitHub Pages artifact and deploy, triggered on push to `main` and manually. `vite.config.ts` already sets `base: './'`. **Pages is enabled** (`build_type: workflow`, HTTPS enforced) and the manual re-run is green for both `build` and `deploy` jobs.
+- Public URL is live: **https://mimimoneydev.github.io/roomloom-the-last-firefly/**. `index.html`, the scene JSON, UIKitML, audio and `test-report.html` all return HTTP 200; a headless Chromium load of the deployed build reports 0 console errors, 0 failed requests and a rendered canvas. Verification in **Quest Browser** on a physical headset is still outstanding.
+- All working-tree changes are committed in the competition-build commit (verify with `git log -1`) and pushed to `origin/main`; `git status --short` is clean. The first two CI runs failed at **Configure Pages** because Pages had never been enabled and the Actions token cannot create a Pages site ("Resource not accessible by integration"); Pages was enabled once through the authenticated GitHub CLI. The workflow still carries `enablement: true` (a no-op once Pages exists), but a fresh repo needs that one-time manual enablement — documented in `README.md`.
 
-### Verified locally on 2026-11-07
+### Verified on 2026-11-07 (local + CI + hosted build)
 
 ```
 npm run typecheck                       # exit 0
@@ -43,12 +44,15 @@ iwsdk scene render-file ... quarter     # ok: true, diagnostics: [], valid scene
 iwsdk scene render-file ... front       # ok: true, diagnostics: []
 iwsdk browser reload + browser logs     # 0 errors / 0 warnings
 iwsdk ecs systems                       # 16 systems; RoomloomSystem, GazeSystem, InputSystem active
+curl -I public URL + assets             # HTTP 200 for index, scene, uikitml, audio, test-report
+headless Chromium on public URL         # 0 console errors, 0 failed requests, 1 canvas
+gh run list --workflow deploy.yml       # green build + deploy jobs
 ```
 
 ### Still OPEN — none of these can be completed from this repo
 
-1. **Clean reinstall**: `npm ci` is still blocked locally by the sandbox bulk-delete guard (`[safe-delete][SAFE_DELETE_BULK_CONFIRM_REQUIRED]`, 62 targets in `node_modules/@dimforge`). The current install is complete enough for typecheck/tests/build to pass; the deploy workflow performs a clean `npm ci` on a fresh CI runner, which is the authoritative clean-install proof. Run it once locally in an unrestricted shell before the final submission if you want a second confirmation.
-2. **Public HTTPS URL**: the workflow now enables Pages itself; wait for the green **Deploy Roomloom to GitHub Pages** run, then copy the live URL into `SUBMISSION.md` §9 and verify it in Quest Browser. Keep it live until ~Dec 11. The expected URL is `https://mimimoneydev.github.io/roomloom-the-last-firefly/`.
+1. **Clean reinstall (resolved in CI)**: `npm ci` is still blocked locally by the sandbox bulk-delete guard (`[safe-delete][SAFE_DELETE_BULK_CONFIRM_REQUIRED]`, 62 targets in `node_modules/@dimforge`). The green GitHub Actions run performed **Install from lockfile → Verify → Build** on a fresh Ubuntu runner with Node 24, which is the authoritative clean-install proof. A local clean reinstall in an unrestricted shell is optional extra confirmation.
+2. **Quest Browser verification**: the public HTTPS URL is live at `https://mimimoneydev.github.io/roomloom-the-last-firefly/`, HTTPS enforced, deploy run green, desktop smoke test clean. Open it on a physical Quest, enter the immersive AR session, grant hand tracking and scene/space permissions, and complete the loop. Keep the URL live and unchanged until ~Dec 11.
 3. **<3 min real-capture video** and **4–6 real-device screenshots** — physical Quest, hands only, two rooms, no AI-generated footage.
 4. **Five physical-Quest field-test JSONs** — `handsOnlySession: true`, ten scenarios each, min one-second FPS ≥ 60, draw calls, different route topologies. Until these exist, no 60 fps or hands-only hardware claim may appear in `SUBMISSION.md` or the Devpost form.
 5. **FoV screenshots** for `metaQuest3` and `metaVRGlasses` (switch `iwsdk.config.json` `dev.emulator.device` between runs).
@@ -76,7 +80,7 @@ iwsdk ecs systems                       # 16 systems; RoomloomSystem, GazeSystem
 
 ### Environment blocker — current state (updated 2026-11-07)
 
-The earlier partial-install failure is resolved for the working install: `npm run typecheck`, `npm test` (32 tests) and `npm run build` all exit 0, and `iwsdk scene render-file` validates the scene with zero diagnostics. A **clean** `npm ci` still cannot run in this sandbox because the bulk-delete guard aborts it (`[safe-delete][SAFE_DELETE_BULK_CONFIRM_REQUIRED]`). The authoritative clean-install proof is therefore the CI job in `.github/workflows/deploy.yml`, which runs `npm ci` on a fresh runner before typecheck, tests and build. If you have an unrestricted shell, also run locally:
+The earlier partial-install failure is resolved for the working install: `npm run typecheck`, `npm test` (32 tests) and `npm run build` all exit 0, and `iwsdk scene render-file` validates the scene with zero diagnostics. A **clean** `npm ci` still cannot run in this sandbox because the bulk-delete guard aborts it (`[safe-delete][SAFE_DELETE_BULK_CONFIRM_REQUIRED]`). The authoritative clean-install proof has now succeeded in CI: the green deploy run executed `npm ci`, typecheck, 32 tests and `npm run build` on a fresh Ubuntu/Node 24 runner. If you have an unrestricted shell, you can also confirm locally:
 
 ```sh
 npm ci --no-audit --no-fund
@@ -283,7 +287,7 @@ The round is three rescues with no fail state and no score (`src/roomloom.ts:289
 
 **Done in the repository**
 
-- [x] `npm run typecheck`, `npm test` (**32 tests**), `npm run build` all exit 0; `iwsdk scene render-file` returns zero diagnostics; runtime console has no errors. Clean `npm ci` on a fresh runner is performed by CI because the local sandbox blocks bulk deletion.
+- [x] `npm run typecheck`, `npm test` (**32 tests**), `npm run build` all exit 0; `iwsdk scene render-file` returns zero diagnostics; runtime console has no errors. A clean `npm ci` plus all three commands also passed on the green CI runner (the local sandbox blocks bulk deletion).
 - [x] All working-tree changes committed; dead starter modules gone; full build (not the 182-line MVP) is in the commit. A fresh clone/typecheck check is still worth repeating after the push.
 - [x] Deployment workflow added (`.github/workflows/deploy.yml`), reproducible from `main`, HTTPS via GitHub Pages.
 - [x] `SUBMISSION.md` complete copy: tagline, description (inspiration / how built / future plans / target launch date), hands-interactions description, testing instructions, team, Track, Division, video shot list, screenshots list, changelog and claims policy. Owner inputs are listed as blockers rather than invented values.
@@ -293,14 +297,15 @@ The round is three rescues with no fail state and no score (`src/roomloom.ts:289
 
 **OPEN — device, account and owner inputs (the remaining gap to the $100K prize)**
 
-- [x] Competition build committed and pushed to `origin/main` (`bc3694d`); working tree clean.
-- [ ] Green GitHub Pages deploy run; public HTTPS URL live, opens in Quest Browser, stays up until ~Dec 11.
+- [x] Competition build committed and pushed to `origin/main`; working tree clean.
+- [x] GitHub Pages enabled, deploy workflow green, public HTTPS URL live (`https://mimimoneydev.github.io/roomloom-the-last-firefly/`), desktop smoke test clean.
+- [ ] Public URL verified in **Quest Browser** on a physical headset; immersive AR session starts and the loop completes; URL stays up until ~Dec 11.
 - [ ] Meta account with Developer Access + Meta VR Start membership + Devpost registration confirmed; Division verified as New Experience (all code post–Sep 24, 2026) or switched to Adapted.
 - [ ] <3 min public YouTube/Vimeo video of real hands-only Quest gameplay in two different rooms; no AI-generated footage.
 - [ ] Five physical-Quest field-test JSONs: hands-only from launch to completion, ten scenarios each, min one-second FPS ≥ 60, draw calls, different route topologies per room.
 - [ ] `README.md` "Physical field tests — pending" section replaced with real results; no emulator result presented as hardware performance.
 - [ ] FoV panel sizing verified on `metaQuest3` **and** `metaVRGlasses` emulator profiles, with screenshots.
-- [ ] All nine rows in `SUBMISSION.md` §9 (Owner inputs) resolved before pasting into Devpost.
+- [ ] Rows 2–9 in `SUBMISSION.md` §9 (Owner inputs) resolved before pasting into Devpost; row 1 (public URL) is done, with only the Quest Browser check remaining.
 - [ ] **Nothing modified on Devpost after Nov 18, 2026, 12:00 PM PT.**
 
 ---
@@ -319,7 +324,7 @@ git status --short                               # must be clean
 
 On an unrestricted shell, prepend a clean `npm ci --no-audit --no-fund` (the CI workflow already does this on every push). The deleted submission copy no longer needs recovering — it is restored verbatim in `README.md` → **Submission** and in `SUBMISSION.md`.
 
-Device-side: open `<public-url>?test=1&hands=1`, play hands-only with controllers unpaired, tap **Save test report**, exit immersive mode, open `<public-url>/test-report.html`, fill device = Physical Quest 3, participant T1–T5, room description, route topology, FoV profile and the observed scenarios, then **Download measurements and notes**. Store the JSONs under `artifacts/room-evidence/`.
+Device-side: open `https://mimimoneydev.github.io/roomloom-the-last-firefly/?test=1&hands=1`, play hands-only with controllers unpaired, tap **Save test report**, exit immersive mode, open `https://mimimoneydev.github.io/roomloom-the-last-firefly/test-report.html`, fill device = Physical Quest 3, participant T1–T5, room description, route topology, FoV profile and the observed scenarios, then **Download measurements and notes**. Store the JSONs under `artifacts/room-evidence/`.
 
 ---
 
