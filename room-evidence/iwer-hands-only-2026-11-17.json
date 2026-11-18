@@ -1,0 +1,123 @@
+{
+  "version": 2,
+  "started": "2026-11-17T13:09:20.241Z",
+  "saved": "2026-11-17T13:10:26.128Z",
+  "url": "http://127.0.0.1:8082/?test=1&hands=1",
+  "userAgent": "Mozilla/5.0 (X11; Linux x86_64; Quest 3) AppleWebKit/537.36 (KHTML, like Gecko) OculusBrowser/33.0.0.x.x.x Chrome/126.0.6478.122 VR Safari/537.36",
+  "environment": "IWER emulator — Meta Quest 3 profile, SEM living_room. NOT a physical headset.",
+  "activeSeconds": 25.182300000000645,
+  "frames": 1512,
+  "averageFps": 60.04217247828679,
+  "minimumOneSecondFps": 59.92210006713867,
+  "secondsBelow60": 13,
+  "samples": [
+    61.02962875366211,
+    59.964019775390625,
+    59.964019775390625,
+    60.08076477050781,
+    59.92210006713867,
+    60,
+    60.00393295288086,
+    59.97001647949219,
+    60.02755355834961,
+    60.068931579589844,
+    59.93407440185547,
+    60,
+    60.05710220336914,
+    59.99399948120117,
+    59.958030700683594,
+    60.05710220336914,
+    59.9520378112793,
+    60.0866813659668,
+    59.958030700683594,
+    59.976009368896484,
+    60.063018798828125,
+    59.97001647949219,
+    59.98800277709961,
+    59.97443771362305,
+    60.039371490478516
+  ],
+  "drawCalls": 26,
+  "peakDrawCalls": 48,
+  "triangles": 20796,
+  "geometries": 38,
+  "textures": 9,
+  "qualityTier": "minimal",
+  "handsOnlyMode": true,
+  "handSourcesSeen": 2,
+  "controllerSourcesSeen": 0,
+  "gazeSourcesSeen": 0,
+  "handsOnlySession": true,
+  "blockedControllerSelections": 0,
+  "roomPlacements": 0,
+  "fallbacks": 0,
+  "events": [
+    {
+      "event": "scan-gate",
+      "seconds": 0,
+      "detail": "",
+      "source": "other"
+    },
+    {
+      "event": "session-start",
+      "seconds": 0,
+      "detail": "hands-only-mode",
+      "source": "other"
+    },
+    {
+      "event": "capabilities",
+      "seconds": 0,
+      "detail": "all",
+      "source": "other"
+    },
+    {
+      "event": "placement",
+      "seconds": 0,
+      "detail": "preview",
+      "source": "other"
+    },
+    {
+      "event": "scan-gate",
+      "seconds": 0,
+      "detail": "",
+      "source": "other"
+    },
+    {
+      "event": "placement",
+      "seconds": 0.019699999999254942,
+      "detail": "unplaced",
+      "source": "other"
+    },
+    {
+      "event": "placement",
+      "seconds": 0.031899999998509884,
+      "detail": "scanning",
+      "source": "other"
+    },
+    {
+      "event": "capabilities",
+      "seconds": 3.017099999997765,
+      "detail": "all",
+      "source": "other"
+    },
+    {
+      "event": "quality-tier",
+      "seconds": 3.017099999997765,
+      "detail": "balanced",
+      "source": "other"
+    },
+    {
+      "event": "quality-tier",
+      "seconds": 15.100099999997726,
+      "detail": "minimal",
+      "source": "other"
+    },
+    {
+      "event": "session-end",
+      "seconds": 25.182300000000645,
+      "detail": "",
+      "source": "other"
+    }
+  ],
+  "evidenceNote": "Captured through BrowserClaw-driven IWER WebXR session in a local build of the submitted code. Hands-only input was configured before session start; no controller sources were observed. This is emulator evidence, not physical-device certification."
+}
